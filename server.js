@@ -17,11 +17,11 @@ app.use(cors({
     origin: '*'
 }));
 
-function getData() {
-    const fileData = fs.readFileSync('src/assets/rows.json', 'utf-8');
-    console.log(fileData)
-}
-getData()
+// function getData() {
+//     const fileData = fs.readFileSync('src/assets/rows.json', 'utf-8');
+//     console.log(fileData)
+// }
+// getData()
 
 server.listen(PORT, () => {
     console.log(`Сервер зпущен на порту ${PORT}`)
