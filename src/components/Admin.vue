@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="form" v-if="isAuth == false">
+  <!-- <div class="form" v-if="isAuth == false">
     <form @submit.prevent="checkAuth">
       <div class="inputs">
         <label for="name">Имя</label>
@@ -13,9 +13,16 @@
       <button type="submit">Войти</button>
       <div>{{ message }}</div>
     </form>
-  </div>
-  <div class="page" v-else>
-    Hi
+  </div> -->
+  <div class="page">
+    <div class="table">
+      <table style="width: 600px; background: #333; height: 300px; padding: 24px;">
+        <tr style="width: 100%; display: flex; flex-direction: column; justify-content: center;">
+          <td style="color: aliceblue;">Добрый день, {{ testData.chiefname }}</td>
+          <td>На сколько я знаю вы работаете в {{ testData.orgname }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -24,28 +31,66 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      isAuth: false,
+      isAuth: true,
       form: {
         name: '',
         lastname: ''
       },
-      message: ''
+      message: '',
+      // dataArr: [],
+      testData: {
+        chiefname: 'ЖУРАВЛЕВА ПОЛИНА ДМИТРИЕВНА',
+        orgname: 'ЖСК МОЛОДЕЖЬ ТЕАТРОВ',
+        email: 'ace135@yandex.ru'
+
+      }
     }
   },
   methods: {
-    checkAuth() {
+    // async checkAuth() {
+    //   try {
+    //     const response = await axios.post('http://192.168.0.102:3000/checkauth', this.form);
+    //     if (response.status == 200) {
+    //       this.isAuth = true;
+    //       this.getData();
+    //     } else {
+    //       this.message = 'Неверные данные пользователя'
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+    async getData() {
       try {
-        const response = axios.post('http://192.168.0.102:3000/checkauth', this.form);
-        if (response.status == 200) {
-          this.isAuth = true
-        } else {
-          this.message = 'Неверные данные пользователя'
-        }
-      } catch (error) {
+        const response = await axios.get('http://192.168.0.102:3000/getdata');
+        console.log(response.data.data)
+        const data = response.data.data;
+        data.forEach(el => {
+          let newObj = {
+            chiefname: '',
+            orgname: '',
+            email: ''
+          }
+          newObj.chiefname = el.Cells.ChiefName;
+          newObj.orgname = el.Cells.ShortName;
+          if (Array.isArray(el.Cells.Email)) {
+            for (let mail of el.Cells.Email) {
+              newObj.email = mail.Email
+              }
+          } else {
+            newObj.email = ''
+          }
+          this.dataArr.push(newObj);
+        })
+        console.log(this.dataArr)
+      } catch(error) {
         console.log(error)
       }
     }
-  }
+  },
+  // created() {
+  //   this.getData();
+  // }
 }
 </script>
 
