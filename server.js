@@ -2,14 +2,24 @@ require('dotenv').config();
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
 const { default: axios } = require('axios');
-// const axios = require('axios');
-// const nodeMailer = require('nodemailer')
+const nodeMailer = require('nodemailer')
 
 const PORT = 3000;
 const app = express();
 const server = http.createServer(app);
+const MAIL_USER = process.env.MAIL_USER;
+const MAIL_PASS = process.env.MAIL_PASS;
+
+let mailerConfig = nodeMailer.createTransport({
+    host: 'smtp.mail.ru',
+    port: 465,
+    secure: true,
+    auth: {
+        user: MAIL_USER,
+        pass: MAIL_PASS
+    }
+})
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -35,11 +45,21 @@ app.get('/getdata', async(req,res) => {
         console.log(error)
     }
 })
-// function getData() {
-//     const fileData = fs.readFileSync('src/assets/rows.json', 'utf-8');
-//     console.log(fileData)
-// }
-// getData()
+app.post('/sends', async(req,res) => {
+    const { chiefname, orgname, email } = req.body;
+    try {
+        let result = await mailerConfig.sendMail({
+            from: '"WEB Marvels" <s.gorbachev@webmarvels.ru>',
+            to: email,
+            subject: `Письмо для ${chiefname}`,
+            text: `Добрый день ${orgname}`
+        });
+        
+        res.send({ status: 'Успешно', info: result });
+    } catch (error) {
+        res.send({ status: 'Ошибка', message: error.message });
+    }
+})
 
 server.listen(PORT, () => {
     console.log(`Сервер зпущен на порту ${PORT}`)

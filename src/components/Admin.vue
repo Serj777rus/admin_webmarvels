@@ -15,6 +15,10 @@
     </form>
   </div> -->
   <div class="page">
+    <button @click="getData">Получить данные</button>
+    <div class="result">Получено {{ dataArr.length }} записей</div>
+    <button @click="postMail(this.testData)">Запустить рассылку</button>
+    <div>{{ status }}</div>
     <div class="table">
       <table style="width: 600px; background: #333; height: 300px; padding: 24px;">
         <tr style="width: 100%; display: flex; flex-direction: column; justify-content: center;">
@@ -37,32 +41,32 @@ export default {
         lastname: ''
       },
       message: '',
-      // dataArr: [],
+      dataArr: [],
       testData: {
         chiefname: 'ЖУРАВЛЕВА ПОЛИНА ДМИТРИЕВНА',
         orgname: 'ЖСК МОЛОДЕЖЬ ТЕАТРОВ',
-        email: 'ace135@yandex.ru'
+        email: 'gvsergey89@gmail.com'
 
-      }
+      },
+      status: ''
     }
   },
   methods: {
-    // async checkAuth() {
-    //   try {
-    //     const response = await axios.post('http://192.168.0.102:3000/checkauth', this.form);
-    //     if (response.status == 200) {
-    //       this.isAuth = true;
-    //       this.getData();
-    //     } else {
-    //       this.message = 'Неверные данные пользователя'
-    //     }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
+    async checkAuth() {
+      try {
+        const response = await axios.post('http://192.168.0.102:3000/checkauth', this.form);
+        if (response.status == 200) {
+          this.isAuth = true;
+        } else {
+          this.message = 'Неверные данные пользователя'
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async getData() {
       try {
-        const response = await axios.get('http://192.168.0.102:3000/getdata');
+        const response = await axios.get('http://192.168.1.160:3000/getdata');
         console.log(response.data.data)
         const data = response.data.data;
         data.forEach(el => {
@@ -86,15 +90,23 @@ export default {
       } catch(error) {
         console.log(error)
       }
+    },
+    async postMail(arr) {
+      try {
+        const response = await axios.post('http://192.168.1.160:3000/sends', arr);
+        if (response.status == 'Успешно') {
+          this.status = 'Рассылка запущена'
+        } else {
+          this.status = response.status;
+        }
+      } catch(error) {
+        console.log(error)
+      }
     }
   },
-  // created() {
-  //   this.getData();
-  // }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
