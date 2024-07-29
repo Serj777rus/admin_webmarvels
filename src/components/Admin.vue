@@ -20,10 +20,13 @@
     <button @click="postMail(this.testData)">Запустить рассылку</button>
     <div>{{ status }}</div>
     <div class="table">
-      <table style="width: 600px; background: #333; height: 300px; padding: 24px;">
+      <table style="width: 600px; background: #333; padding: 24px;">
         <tr style="width: 100%; display: flex; flex-direction: column; justify-content: center;">
-          <td style="color: aliceblue;">Добрый день, {{ testData.chiefname }}</td>
-          <td>На сколько я знаю вы работаете в {{ testData.orgname }}</td>
+          <td style="color: #333; font-weight: 900; padding: 12px; background: #fff; border: none; box-sizing: border-box;">Профессиональная WEB и мобильная разработка<br>"WEB Marvels"</td>
+          <td><img src="../assets/photos/phone.jpg" style="width: 100%; object-fit: cover;"></td>
+          <td style="width: 100%; padding: 24px 12px; text-align: start; background: #fff; color: #333; box-sizing: border-box;">Добрый день {{ testData.chiefname }}.<br><br>Меня зовут Сергей и я являюсь профессиональным Web разработчиком.
+          <br>Дочитайте это письмо до конца, внизу будет приятный бонус
+          <br><br>В современном мире все решают технологие и их интеграция в нашу поседневную жизнь</td>
         </tr>
       </table>
     </div>
@@ -43,7 +46,7 @@ export default {
       message: '',
       dataArr: [],
       testData: {
-        chiefname: 'ЖУРАВЛЕВА ПОЛИНА ДМИТРИЕВНА',
+        chiefname: 'Сергей Владимирович',
         orgname: 'ЖСК МОЛОДЕЖЬ ТЕАТРОВ',
         email: 'gvsergey89@gmail.com'
 
@@ -94,7 +97,7 @@ export default {
     async postMail(arr) {
       try {
         const response = await axios.post('http://192.168.1.160:3000/sends', arr);
-        if (response.status == 'Успешно') {
+        if (response.status == 200) {
           this.status = 'Рассылка запущена'
         } else {
           this.status = response.status;
