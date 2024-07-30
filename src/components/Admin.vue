@@ -157,17 +157,6 @@ export default {
       },
       message: '',
       dataArr: [],
-      // testData: [{
-      //   chiefname: 'Лилия Рафиковна',
-      //   orgname: 'Massage Spa Time',
-      //   email: 'lilitopchik1006@gmail'
-      // },
-      // {
-      //   chiefname: 'Сергей Горбачев',
-      //   orgname: 'Massage Spa Time',
-      //   email: 'gvsergey89@gmail.com'
-      // }
-      // ],
       status: '',
       count: 0,
       anticouunt: 0
@@ -234,7 +223,8 @@ export default {
       console.log(response.data)
       this.count = response.data.data.ok;
       this.anticouunt = response.data.data.notok;
-    }
+    },
+    
   }
 }
 </script>
