@@ -6,6 +6,7 @@ const cors = require('cors');
 const { default: axios } = require('axios');
 const nodeMailer = require('nodemailer');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 
 const allowedOrigins = ['https://webmarvels.ru', 'https://www.webmarvels.ru', 'https://admin.webmarvels.ru', 'https://www.admin.webmarvels.ru'];
 const corsOptions = {
@@ -41,13 +42,13 @@ let mailerConfig = nodeMailer.createTransport({
         pass: 'Ft6VwK1jNBbPC63sbxzC'
     }
 })
-
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors({
-    credentials: true,
-    origin: '*'
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin: '*'
+// }));
 
 app.use(cors(corsOptions));
 app.options('*', (req, res) => {
@@ -200,7 +201,7 @@ app.post('/sends', async(req,res) => {
                                                 <td align="center" style="padding: 24px 12px; background: rgba(24, 57, 70, 1); color: #fff; font-size: 16px; font-weight: 900;">
                                                 Контакты:
                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tr>
+                                                   <tr>
                                                     <a href="https://wa.me/79114682801"><td align="center" style="padding: 12px;">
                                                         <img src="https://drive.google.com/uc?export=view&id=1r4dryImJBHek-LNbkev9IiitfiVFuxRA" style="width: 24px; object-fit: cover;" alt="WhatsApp"><br>
                                                         <span style="font-size: 12px; font-weight: 200;">+7911 468 28 01</span>
@@ -230,7 +231,7 @@ app.post('/sends', async(req,res) => {
                 console.error('Error sending email:', error);
                 anticount++;
             }
-            await delay(60000);
+            await delay(180000);
     }
     res.send({ status: 'Успешно'});
     count = 0;
