@@ -1,36 +1,36 @@
 require('dotenv').config();
-const http = require('http');
-// const https = require('https');
+// const http = require('http');
+const https = require('https');
 const express = require('express');
 const cors = require('cors');
 const { default: axios } = require('axios');
 const nodeMailer = require('nodemailer');
-// const fs = require('fs');
+const fs = require('fs');
 
-// const allowedOrigins = ['https://webmarvels.ru', 'https://www.webmarvels.ru', 'https://admin.webmarvels.ru', 'https://www.admin.webmarvels.ru'];
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     credentials: true,
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-//     optionsSuccessStatus: 204 // для поддержки старых браузеров
-// };
+const allowedOrigins = ['https://webmarvels.ru', 'https://www.webmarvels.ru', 'https://admin.webmarvels.ru', 'https://www.admin.webmarvels.ru'];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    optionsSuccessStatus: 204 // для поддержки старых браузеров
+};
 
-// const options = {
-//     key: fs.readFileSync('/etc/letsencrypt/live/webmarvels.ru-0001/privkey.pem'),
-//     cert: fs.readFileSync('/etc/letsencrypt/live/webmarvels.ru-0001/fullchain.pem')
-// };
+const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/webmarvels.ru-0001/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/webmarvels.ru-0001/fullchain.pem')
+};
 
 const PORT = 3000;
 const app = express();
-const server = http.createServer(app);
-// const server = https.createServer(options, app);
+// const server = http.createServer(app);
+const server = https.createServer(options, app);
 
 let mailerConfig = nodeMailer.createTransport({
     host: 'smtp.mail.ru',
@@ -49,14 +49,14 @@ app.use(cors({
     origin: '*'
 }));
 
-// app.use(cors(corsOptions));
-// app.options('*', (req, res) => {
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     res.sendStatus(204);
-// });
+app.use(cors(corsOptions));
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.sendStatus(204);
+});
 
 app.post('/checkauth', async(req, res) => {
     const { name, lastname } = req.body
@@ -201,17 +201,17 @@ app.post('/sends', async(req,res) => {
                                                 Контакты:
                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
-                                                    <td align="center" style="padding: 12px;">
+                                                    <a href="https://wa.me/79114682801"><td align="center" style="padding: 12px;">
                                                         <img src="https://drive.google.com/uc?export=view&id=1r4dryImJBHek-LNbkev9IiitfiVFuxRA" style="width: 24px; object-fit: cover;" alt="WhatsApp"><br>
                                                         <span style="font-size: 12px; font-weight: 200;">+7911 468 28 01</span>
-                                                    </td>
-                                                    <td align="center" style="padding: 12px;">
+                                                    </td></a>
+                                                    <a href="https://t.me/Gorbachev_S_V"><td align="center" style="padding: 12px;">
                                                         <img src="https://drive.google.com/uc?export=view&id=1ey2OS6MOKule9h6qhqCDvwpm8H7irrMb" style="width: 24px; object-fit: cover;" alt="Telegram"><br>
                                                         <span style="font-size: 12px; font-weight: 200;">@Gorbachev_S_V</span>
-                                                    </td>
+                                                    </td></a>
                                                     <td align="center" style="padding: 12px;">
                                                         <img src="https://drive.google.com/uc?export=view&id=1YJjH0n9NbHMFIq7ucmVBKIGnjpe2EwHu" style="width: 24px; object-fit: cover;" alt="VK"><br>
-                                                        <a href="https://vk.com/id693783511" style="text-decoration: none; color: #fff;">VK.com</a>
+                                                        <a href="https://vk.com/id693783511" style="text-decoration: none; font-weight: 400; font-size: 12px; color: #fff;">VK.com</a>
                                                     </td>
                                                     </tr>
                                                 </table>

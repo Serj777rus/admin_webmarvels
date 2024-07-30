@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <!-- <div class="form" v-if="isAuth == false">
+  <div class="form" v-if="isAuth == false">
     <form @submit.prevent="checkAuth">
       <div class="inputs">
         <label for="name">Имя</label>
@@ -13,8 +13,8 @@
       <button type="submit">Войти</button>
       <div>{{ message }}</div>
     </form>
-  </div> -->
-  <div class="page">
+  </div>
+  <div class="page" v-else>
     <button @click="getData">Получить данные</button>
     <div class="result">Получено {{ dataArr.length }} записей</div>
     <button @click="postMail(this.testData)">Запустить рассылку</button>
@@ -119,19 +119,19 @@
               <tr>
                 <td align="center" style="padding: 24px 12px; background: rgba(24, 57, 70, 1); color: #fff; font-size: 16px; font-weight: 900;">
                   Контакты:
-                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                      <td align="center" style="padding: 12px;">
+                      <a href="https://wa.me/79114682801"><td align="center" style="padding: 12px;">
                         <img src="../assets/photos/whatsapp.png" style="width: 24px; object-fit: cover;" alt="WhatsApp"><br>
                         <span style="font-size: 12px; font-weight: 200;">+7911 468 28 01</span>
-                      </td>
-                      <td align="center" style="padding: 12px;">
+                      </td></a>
+                      <a href="https://t.me/Gorbachev_S_V"><td align="center" style="padding: 12px;">
                         <img src="../assets/photos/tg.png" style="width: 24px; object-fit: cover;" alt="Telegram"><br>
                         <span style="font-size: 12px; font-weight: 200;">@Gorbachev_S_V</span>
-                      </td>
+                      </td></a>
                       <td align="center" style="padding: 12px;">
                         <img src="../assets/photos/vk.png" style="width: 24px; object-fit: cover;" alt="VK"><br>
-                        <a href="https://vk.com/id693783511" style="text-decoration: none; color: #fff;">VK.com</a>
+                        <a href="https://vk.com/id693783511" style="text-decoration: none; font-weight: 400; font-size: 12px; color: #fff;">VK.com</a>
                       </td>
                     </tr>
                   </table>
@@ -150,24 +150,24 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      isAuth: true,
+      isAuth: false,
       form: {
         name: '',
         lastname: ''
       },
       message: '',
       dataArr: [],
-      testData: [{
-        chiefname: 'Лилия Рафиковна',
-        orgname: 'Massage Spa Time',
-        email: 'lilitopchik1006@gmail'
-      },
-      {
-        chiefname: 'Сергей Горбачев',
-        orgname: 'Massage Spa Time',
-        email: 'gvsergey89@gmail.com'
-      }
-      ],
+      // testData: [{
+      //   chiefname: 'Лилия Рафиковна',
+      //   orgname: 'Massage Spa Time',
+      //   email: 'lilitopchik1006@gmail'
+      // },
+      // {
+      //   chiefname: 'Сергей Горбачев',
+      //   orgname: 'Massage Spa Time',
+      //   email: 'gvsergey89@gmail.com'
+      // }
+      // ],
       status: '',
       count: 0,
       anticouunt: 0
@@ -176,7 +176,7 @@ export default {
   methods: {
     async checkAuth() {
       try {
-        const response = await axios.post('http://192.168.0.102:3000/checkauth', this.form);
+        const response = await axios.post('api/checkauth', this.form);
         if (response.status == 200) {
           this.isAuth = true;
         } else {
@@ -188,7 +188,7 @@ export default {
     },
     async getData() {
       try {
-        const response = await axios.get('http://192.168.0.102:3000/getdata');
+        const response = await axios.get('api/getdata');
         console.log(response.data.data)
         const data = response.data.data;
         data.forEach(el => {
@@ -198,6 +198,9 @@ export default {
             email: ''
           }
           newObj.chiefname = el.Cells.ChiefName;
+          let str = newObj.chiefname.split(' ').slice(1);
+          let processedWord = str.map(word => word.charAt(0) + word.slice(1).toLocaleLowerCase());
+          newObj.chiefname = processedWord.join(' ');
           newObj.orgname = el.Cells.ShortName;
           if (Array.isArray(el.Cells.Email)) {
             for (let mail of el.Cells.Email) {
@@ -215,7 +218,7 @@ export default {
     },
     async postMail(arr) {
       try {
-        const response = await axios.post('http://192.168.0.102:3000/sends', arr);
+        const response = await axios.post('api/sends', arr);
         if (response.status == 200) {
           this.status = 'Рассылка запущена'
         } else {
@@ -226,7 +229,7 @@ export default {
       }
     },
     async getCount() {
-      const response = await axios.get('http://192.168.0.102:3000/getCount')
+      const response = await axios.get('api/getCount')
       console.log(response.data)
       this.count = response.data.data.ok;
       this.anticouunt = response.data.data.notok;
