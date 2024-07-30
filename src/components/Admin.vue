@@ -17,7 +17,7 @@
   <div class="page" v-else>
     <button @click="getData">Получить данные</button>
     <div class="result">Получено {{ dataArr.length }} записей</div>
-    <button @click="postMail(this.testData)">Запустить рассылку</button>
+    <button @click="postMail(dataArr)">Запустить рассылку</button>
     <div>{{ status }}</div>
     <button @click="getCount">Показать счетчик</button>
     <div>Отправлено: {{ count }}</div>
