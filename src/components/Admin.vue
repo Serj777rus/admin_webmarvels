@@ -156,7 +156,11 @@ export default {
         lastname: ''
       },
       message: '',
-      dataArr: [],
+      dataArr: [{
+        chiefname: 'Сергей Владимирович',
+        orgname: 'WebMarvels',
+        email: 'gvsergey89@gmail.com'
+      }],
       status: '',
       count: 0,
       anticouunt: 0
