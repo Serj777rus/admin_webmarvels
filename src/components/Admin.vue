@@ -156,11 +156,7 @@ export default {
         lastname: ''
       },
       message: '',
-      dataArr: [{
-        chiefname: 'Сергей Владимирович',
-        orgname: 'WebMarvels',
-        email: 'gvsergey89@gmail.com'
-      }],
+      dataArr: [],
       status: '',
       count: 0,
       anticouunt: 0
@@ -204,7 +200,7 @@ export default {
           }
           this.dataArr.push(newObj);
         })
-        this.dataArr.splice(0, 250);
+        this.dataArr.splice(0, 530);
         console.log(this.dataArr)
       } catch(error) {
         console.log(error)
