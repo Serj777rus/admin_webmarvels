@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="form" v-if="isAuth == false">
+  <!-- <div class="form" v-if="isAuth == false">
     <form @submit.prevent="checkAuth">
       <div class="inputs">
         <label for="name">Имя</label>
@@ -13,8 +13,8 @@
       <button type="submit">Войти</button>
       <div>{{ message }}</div>
     </form>
-  </div>
-  <div class="page" v-else>
+  </div> -->
+  <div class="page">
     <button @click="getData">Получить данные</button>
     <div class="result">Получено {{ dataArr.length }} записей</div>
     <button @click="postMail(dataArr)">Запустить рассылку</button>
@@ -147,6 +147,7 @@
 
 <script>
 import axios from 'axios';
+import base from '../assets/base.json'
 export default {
   data() {
     return {
@@ -159,7 +160,8 @@ export default {
       dataArr: [],
       status: '',
       count: 0,
-      anticouunt: 0
+      anticouunt: 0,
+      yaBase: base
     }
   },
   methods: {
@@ -224,7 +226,12 @@ export default {
       this.count = response.data.data.ok;
       this.anticouunt = response.data.data.notok;
     },
-    
+    readFile() {
+      console.log(this.yaBase)
+    }
+  },
+  mounted() {
+    this.readFile();
   }
 }
 </script>
