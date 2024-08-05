@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <!-- <div class="form" v-if="isAuth == false">
+  <div class="form" v-if="isAuth == false">
     <form @submit.prevent="checkAuth">
       <div class="inputs">
         <label for="name">Имя</label>
@@ -13,8 +13,8 @@
       <button type="submit">Войти</button>
       <div>{{ message }}</div>
     </form>
-  </div> -->
-  <div class="page">
+  </div>
+  <div class="page" v-else>
     <button @click="getData">Получить данные</button>
     <div class="result">Получено {{ dataArr.length }} записей</div>
     <button @click="postMail(dataArr)">Запустить рассылку</button>
