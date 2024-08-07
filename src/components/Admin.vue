@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="form" v-if="isAuth == false">
+  <!-- <div class="form" v-if="isAuth == false">
     <form @submit.prevent="checkAuth">
       <div class="inputs">
         <label for="name">Имя</label>
@@ -13,8 +13,8 @@
       <button type="submit">Войти</button>
       <div>{{ message }}</div>
     </form>
-  </div>
-  <div class="page" v-else>
+  </div> -->
+  <div class="page">
     <button @click="getData">Получить данные</button>
     <div class="result">Получено {{ dataArr.length }} записей</div>
     <button @click="postMail(dataArr)">Запустить рассылку</button>
@@ -38,15 +38,15 @@
                                             <tr>
                                                 <td style="width: 100%; padding: 24px 12px; text-align: start; background: #fff; color: #333; box-sizing: border-box;">
                                                 Добрый день ${el.chiefname}.<br><br>
-                                                Меня зовут Сергей и я являюсь профессиональным Web разработчиком.<br>
+                                                Меня зовут Сергей и я являюсь руководителем Web студии, а так же Web разработчиком.<br><br>
                                                 Дочитайте это письмо до конца, так там будет приятный бонус для Вас &#127873;<br><br>
-                                                В современном мире все решают технологии и их интеграция в нашу повседневную жизнь, а скорость взаимодействия с вашими клиентами может играть решающую роль.<br><br>
-                                                Для сферы деятельности вашей организации я разработал комплексное предложение, которое сможет закрыть все Ваши потребности и боли, а также Ваших клиентов &#128077;
+                                                В современном мире все решают технологии и их интеграция в нашу повседневную жизнь, а скорость взаимодействия с обучающимися может играть вам на руку.<br><br>
+                                                Для сферы деятельности вашего учреждения я разработал комплексное предложение, которое сможет закрыть все Ваши потребности и боли, а также обучающихся &#128077;
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="padding: 12px; background: #fff; color: #333; font-size: 24px; font-weight: 900;">
-                                                Что же именно я предлагаю:
+                                                Что же именно мы предлагаем:
                                                 </td>
                                             </tr>
                                             <tr>
@@ -55,8 +55,8 @@
                                                     <tr>
                                                     <td width="50%" style="padding: 12px;"><img src="https://drive.google.com/uc?export=view&id=17Z_tNOWYmjYp9ipOPrePaaaFyM_VO3mW" style="width: 100%; object-fit: cover; border-radius: 16px; box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, .3);" alt="Web Development"></td>
                                                     <td width="50%" style="padding: 12px; text-align: start; line-height: 100%; font-weight: 600;">
-                                                        Разработку современного Web сайта для вашей ${el.orgname}<br><br>
-                                                        <span style="font-size: 12px; font-weight: 400;">Современный сайт поможет вашей управляющей компании наиболее подробно и эффективно рассказать вашим клиентам о вашей деятельности и услугах</span>
+                                                        Разработку современного Web сайта для ${el.orgname}<br><br>
+                                                        <span style="font-size: 12px; font-weight: 400;">Современный сайт поможет вашему образовательному учреждению наиболее подробно и эффективно рассказать обучающимся и поступающим о вашей деятельности, направлениях и услугах</span>
                                                     </td>
                                                     </tr>
                                                     <tr>
@@ -87,19 +87,19 @@
                                                     <tr>
                                                     <td width="10%" style="font-size: 64px; font-weight: 900;">1</td>
                                                     <td width="90%" style="padding: 12px; font-size: 12px; text-align: start; line-height: 110%;">
-                                                        Современный сайт расширяет Ваши возможности как по взаимодействию с клиентами, так и по оказанию услуг населению. На сайте возможны интеграции онлайн заказов услуг и товаров, онлайн консультаций, прием оплат, сбор обратной связи, публикация информации о Вашей деятельности. Возможности сайта могут ограничиваться только Вашей фантазией &#128521;
+                                                        Современный сайт расширяет Ваши возможности как взаимодействию с обучающимися. На сайте возможны интеграции онлайн сервисов, онлайн консультаций, прием оплат, сбор обратной связи, публикация информации о Вашей деятельности. Возможности сайта могут ограничиваться только Вашей фантазией &#128521;
                                                     </td>
                                                     </tr>
                                                     <tr>
                                                     <td width="10%" style="font-size: 64px; font-weight: 900;">2</td>
                                                     <td width="90%" style="padding: 12px; font-size: 12px; text-align: start; line-height: 110%;">
-                                                        Мобильное приложение станет прекрасным дополнением к Вашему основному сайту. В современном мире все больше действий люди совершают с помощью смартфона. Мобильное приложение может охватывать огромный спектр Вашей деятельности. От товаров и услуг до личного кабинета и выставления счетов &#128241;
+                                                        Мобильное приложение станет прекрасным дополнением к Вашему основному сайту. В современном мире все больше действий люди совершают с помощью смартфона. Мобильное приложение может охватывать огромный спектр Вашей деятельности &#128241;
                                                     </td>
                                                     </tr>
                                                     <tr>
                                                     <td width="10%" style="font-size: 64px; font-weight: 900;">3</td>
                                                     <td width="90%" style="padding: 12px; font-size: 12px; text-align: start; line-height: 110%;">
-                                                        CRM система служит для более комфортного взаимодействия внутри вашей компании и с вашими клиентами. С помощью нее можно автоматизировать и ускорить большинство рутинных бизнес процессов &#129518;
+                                                        CRM система служит для более комфортного взаимодействия внутри вашего учреждения и с вашими обучающимися. С помощью нее можно автоматизировать и ускорить большинство рутинных бизнес процессов &#129518;
                                                     </td>
                                                     </tr>
                                                 </table>
@@ -179,34 +179,76 @@ export default {
     },
     async getData() {
       try {
-        const response = await axios.get('api/getdata');
-        console.log(response.data.data)
-        const data = response.data.data;
+        // const response = await axios.get('api/getdata');
+        const response = await axios.get('https://apidata.mos.ru/v1/categories?api_key=df531151-88ec-44f8-89e4-c6fd441030f7');
+        // console.log(response.data.data)
+        console.log(response.data)
+        let data = response.data.categories;
+        let newArr = [];
         data.forEach(el => {
-          let newObj = {
+          if (el.Id == '114') {
+            newArr.push(el.Datasets)
+          } else {
+            console.log('Не то')
+          }
+        })
+        console.log(newArr);
+        this.getAllData(newArr[0]);
+        // const data = response.data.data;
+        // data.forEach(el => {
+        //   let newObj = {
+        //     chiefname: '',
+        //     orgname: '',
+        //     email: ''
+        //   }
+        //   newObj.chiefname = el.Cells.ChiefName;
+        //   let str = newObj.chiefname.split(' ').slice(1);
+        //   let processedWord = str.map(word => word.charAt(0) + word.slice(1).toLocaleLowerCase());
+        //   newObj.chiefname = processedWord.join(' ');
+        //   newObj.orgname = el.Cells.ShortName;
+        //   if (Array.isArray(el.Cells.Email)) {
+        //     for (let mail of el.Cells.Email) {
+        //       newObj.email = mail.Email
+        //       }
+        //   } else {
+        //     newObj.email = ''
+        //   }
+        //   this.dataArr.push(newObj);
+        // })
+        // this.dataArr.splice(0, 530);
+        // console.log(this.dataArr)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async getAllData(newArr) {
+      let rowsArr = [];
+       for (const el of newArr) {
+        if (el == '3326') {
+        const response = await axios.get(`https://apidata.mos.ru/v1/datasets/${el}/rows?api_key=df531151-88ec-44f8-89e4-c6fd441030f7`);
+        rowsArr.push(response.data)
+      } else {
+        console.log('не то')
+      }}
+      console.log(rowsArr);
+      rowsArr[0].forEach(el => {
+        let newObj = {
             chiefname: '',
             orgname: '',
             email: ''
           }
-          newObj.chiefname = el.Cells.ChiefName;
-          let str = newObj.chiefname.split(' ').slice(1);
-          let processedWord = str.map(word => word.charAt(0) + word.slice(1).toLocaleLowerCase());
-          newObj.chiefname = processedWord.join(' ');
-          newObj.orgname = el.Cells.ShortName;
-          if (Array.isArray(el.Cells.Email)) {
-            for (let mail of el.Cells.Email) {
-              newObj.email = mail.Email
-              }
-          } else {
-            newObj.email = ''
+        newObj.chiefname = el.Cells.ChiefName.split(' ').slice(1).join(' ');
+        newObj.orgname = el.Cells.ShortName;
+        if (Array.isArray(el.Cells.Email)) {
+          for (const mail of el.Cells.Email) {
+            newObj.email = mail.Email;
           }
-          this.dataArr.push(newObj);
-        })
-        this.dataArr.splice(0, 530);
-        console.log(this.dataArr)
-      } catch(error) {
-        console.log(error)
-      }
+        } else {
+          newObj.email = el.Cells.Email;
+        }
+        this.dataArr.push(newObj);
+      })
+      console.log(this.dataArr);
     },
     async postMail(arr) {
       try {
@@ -225,13 +267,7 @@ export default {
       console.log(response.data)
       this.count = response.data.data.ok;
       this.anticouunt = response.data.data.notok;
-    },
-    readFile() {
-      console.log(this.yaBase)
     }
-  },
-  mounted() {
-    this.readFile();
   }
 }
 </script>
