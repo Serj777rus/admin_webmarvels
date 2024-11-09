@@ -1,14 +1,14 @@
 <template>
-  <Admin/>
+  <AdminPanel/>
 </template>
 
 <script>
-import Admin from './components/Admin.vue'
+import AdminPanel from './components/AdminPanel.vue'
 
 export default {
   name: 'App',
   components: {
-    Admin
+    AdminPanel
   }
 }
 </script>
@@ -20,6 +20,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
